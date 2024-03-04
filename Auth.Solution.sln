@@ -3,7 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "auth-ng", "clients\auth-ng\auth-ng.esproj", "{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

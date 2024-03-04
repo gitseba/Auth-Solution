@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row justify-content-md-center mt-5">
+        <div class="col-sm-* col-md-12 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Register</h5>
+
+                    <form #registerForm="ngForm" (ngSubmit)="registerAction()">
+
+                        <div class="form-group mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input id="name" name="name" ngModel #name="ngModel" type="text" required class="form-control"/>
+                            <div *ngIf="name.touched && name.errors">
+                                <span class="text-danger small">*Name is required</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input id="email" name="email" ngModel #email="ngModel" required email type="email" class="form-control"/>
+                            <div *ngIf="email.touched && email.errors">
+                                <span class="text-danger small">*Email is required</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input id="password" name="password" ngModel #password="ngModel" required type="password" class="form-control"/>
+                            <div *ngIf="password.touched && password.errors">
+                                <span class="text-danger small">*Password is required</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                            <input id="confirm-password" name="confirmPassword" ngModel #confirmPassword="ngModel" required type="password"class="form-control"/>
+                            <div *ngIf="password.value !== confirmPassword.value">
+                                <span class="text-danger small">*Passwords do not match</span>
+                              </div>
+                        </div> 
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-block" 
+                            [disabled]="isSubmitting || registerForm.invalid || password.value !== confirmPassword.value">Register Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
