@@ -36,7 +36,10 @@ export class RegisterComponent {
     }
     this.userAuthService
     .register(payload).subscribe({
-      next: response => console.log(response),
+      next: response =>{ 
+        console.log(response); 
+        this.toastr.success("Registration was success.")
+      },
       error: error => {
         // Handle error response
         console.error('Form submission failed:', error);
@@ -49,7 +52,7 @@ export class RegisterComponent {
         }, 4000);
       },
       complete: () => {
-        console.log("request completed")
+        console.log("Registration request is completed.")
         //When arrive here, this will automatically unsubscribe from the service
       }
     });

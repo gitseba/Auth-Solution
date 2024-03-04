@@ -13,17 +13,9 @@ namespace Auth.Sqlite.Repositories
             _dbContext = context;
         }
 
-        public override void Insert(AccountEntity entity)
+        public override OperationResult<AccountEntity> Insert(AccountEntity entity)
         {
-            try
-            {
-                base.Insert(entity);
-                Save();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+           return base.Insert(entity);
         }
 
         public override void Delete(object id)

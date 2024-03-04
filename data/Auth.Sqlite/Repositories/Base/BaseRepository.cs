@@ -50,9 +50,22 @@ namespace Auth.Sqlite.Repositories.Base
             return dbSet.Find(id);
         }
 
-        public virtual void Insert(TEntity entity)
+        public virtual OperationResult<TEntity> Insert(TEntity entity)
         {
-            dbSet.Add(entity);
+            var result = new OperationResult<TEntity>();
+            try
+            {
+                // Attempt to add entity
+                dbSet.Add(entity);
+                result.IsSuccess = true;
+                result.Result = entity;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
         }
 
         public virtual void Delete(object id)

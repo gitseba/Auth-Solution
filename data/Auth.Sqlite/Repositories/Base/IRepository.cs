@@ -22,7 +22,7 @@ namespace Auth.Sqlite.Repositories.Base
 
         IEnumerable<TEntity> GetWithRawSql(string query, params object[] parameters);
 
-        void Insert(TEntity entity);
+        OperationResult<TEntity> Insert(TEntity entity);
 
         void Update(TEntity entityToUpdate);
 

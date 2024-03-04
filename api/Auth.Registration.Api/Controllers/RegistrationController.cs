@@ -36,21 +36,19 @@ namespace Auth.Registration.Api.Controllers
 
             var mapAccount = _mapper.Map<AccountEntity>(registerData);
 
-            _repository.Insert(mapAccount);
-            //if (result.Succeeded)
-            //{
-            //    // Registration successful
-            //    return RedirectToAction("Login");
-            //}
-            //else
-            //{
-            //    // If registration fails, add errors to ModelState
-            //    foreach (var error in result.Errors)
-            //    {
-            //        ModelState.AddModelError("", error.Description);
-            //    }
+            var result = _repository.Insert(mapAccount);
+            if (result.IsSuccess)
+            {
+                // Registration successful
+                return Ok();//RedirectToAction("Login");
+            }
+            else
+            {
+                // If registration fails, add errors to ModelState
+                ModelState.AddModelError("", result.ErrorMessage);
+
                 return BadRequest(ModelState);
-            //}
+            }
         }
     }
 }
