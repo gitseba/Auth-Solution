@@ -12,6 +12,7 @@ builder.Services.AddDbContext<AccountDbContext>(options
     => options.UseSqlite(b => b.MigrationsAssembly("Auth.Sqlite")));
 builder.Services.AddScoped<IRepository<AccountEntity>, AccountRepository>();
 
+
 builder.Services.AddAuthentication(
                config =>
                {

@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
+
+  apiUrl: string = environment.authApiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -14,8 +17,7 @@ export class UserAuthService {
       name: data.name,
       email: data.email,
       password: data.password,
-      password_confirmation: data.confirmPassword
     }
-    return this.http.post('https://localhost:7235/api/account/register', payload)
+    return this.http.post(`${this.apiUrl}/register`, payload)
   }
 }

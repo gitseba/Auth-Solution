@@ -4,6 +4,7 @@ using Auth.Sqlite.Repositories.Base;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -24,8 +25,14 @@ namespace Auth.Api.Cookie.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public IActionResult Register(RegisterDto registerData)
+        public IActionResult Register([FromBody] RegisterDto registerData)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // BCrypt.NET or System.Security.Cryptography to securely hash passwords
 
             var account = new AccountEntity {
                 Email = registerData.Email, 
