@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{AE7A5270-4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{F3FAD76A-9E3A-4EB3-BFF9-7E4BDE1A1A37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Registration.Api", "api\Auth.Registration.Api\Auth.Registration.Api.csproj", "{B3EA828D-8057-4C66-AAE2-E9EC0A373288}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{03CD65ED-1153-49BC-B68C-396B5919B11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03CD65ED-1153-49BC-B68C-396B5919B11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03CD65ED-1153-49BC-B68C-396B5919B11D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3EA828D-8057-4C66-AAE2-E9EC0A373288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3EA828D-8057-4C66-AAE2-E9EC0A373288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3EA828D-8057-4C66-AAE2-E9EC0A373288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3EA828D-8057-4C66-AAE2-E9EC0A373288}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF} = {6229D803-F568-4EF0-9D55-11518EB688EE}
 		{31103E8C-2385-414B-9BE9-015715D8E81F} = {AE7A5270-4AD4-4C60-8B57-7AAC089024A7}
 		{03CD65ED-1153-49BC-B68C-396B5919B11D} = {F3FAD76A-9E3A-4EB3-BFF9-7E4BDE1A1A37}
+		{B3EA828D-8057-4C66-AAE2-E9EC0A373288} = {F3FAD76A-9E3A-4EB3-BFF9-7E4BDE1A1A37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {143EA886-53B0-4B9F-BE3B-82508E9DC9A2}

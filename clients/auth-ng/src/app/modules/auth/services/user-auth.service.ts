@@ -18,6 +18,6 @@ export class UserAuthService {
       email: data.email,
       password: data.password,
     }
-    return this.http.post(`${this.apiUrl}/register`, payload)
+    return this.http.post(`${this.apiUrl}`, payload)
   }
 }

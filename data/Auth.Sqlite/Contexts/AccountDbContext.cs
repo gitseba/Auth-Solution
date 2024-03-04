@@ -1,5 +1,6 @@
 ﻿using Auth.Sqlite.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Auth.Sqlite.Contexts
 {
@@ -13,7 +14,10 @@ namespace Auth.Sqlite.Contexts
         public AccountDbContext(DbContextOptions<AccountDbContext> options)
             : base(options)
         {
-
+            this.SaveChangesFailed += (args, err) =>
+            {
+                Debug.WriteLine("Saving model failed because: " + err.Exception.Message);
+            };
         }
 
         public DbSet<AccountEntity> Accounts { get; set; }
