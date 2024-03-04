@@ -21,8 +21,6 @@ namespace Auth.Api.Cookie.Controllers
             _repository = repository;
         }
 
-
-
         [AllowAnonymous]
         [HttpPost("Register")]
         public IActionResult Register([FromBody] RegisterDto registerData)
@@ -35,6 +33,7 @@ namespace Auth.Api.Cookie.Controllers
             // BCrypt.NET or System.Security.Cryptography to securely hash passwords
 
             var account = new AccountEntity {
+                Name = registerData.Name,
                 Email = registerData.Email, 
                 Password = registerData.Password 
             };
