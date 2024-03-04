@@ -5,6 +5,10 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "auth-ng", "clients\auth-ng\auth-ng.esproj", "{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Sqlite", "data\Auth.Sqlite\Auth.Sqlite.csproj", "{31103E8C-2385-414B-9BE9-015715D8E81F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Api.Cookie", "api\Auth.Api.Cookie\Auth.Api.Cookie.csproj", "{03CD65ED-1153-49BC-B68C-396B5919B11D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DEC1578B-E5CB-4140-903B-F6A1B0A265DF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{31103E8C-2385-414B-9BE9-015715D8E81F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31103E8C-2385-414B-9BE9-015715D8E81F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31103E8C-2385-414B-9BE9-015715D8E81F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31103E8C-2385-414B-9BE9-015715D8E81F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03CD65ED-1153-49BC-B68C-396B5919B11D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03CD65ED-1153-49BC-B68C-396B5919B11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03CD65ED-1153-49BC-B68C-396B5919B11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03CD65ED-1153-49BC-B68C-396B5919B11D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

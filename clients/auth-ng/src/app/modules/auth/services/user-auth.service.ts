@@ -16,6 +16,6 @@ export class UserAuthService {
       password: data.password,
       password_confirmation: data.confirmPassword
     }
-    return this.http.post('https://localhost:7235/api/account/registeree', payload)
+    return this.http.post('https://localhost:7235/api/account/register', payload)
   }
 }
