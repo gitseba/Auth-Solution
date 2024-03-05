@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/data/Auth.Sqlite/Accounts.sqlite-shm
+/data/Auth.Sqlite/Accounts.sqlite-wal

@@ -5,13 +5,13 @@ namespace Auth.Sqlite.Repositories.Base
 {
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private DbContext _dataContext;
+        private DbContext _dbContext;
         internal DbSet<TEntity> dbSet;
 
         public BaseRepository(DbContext context)
         {
 
-            _dataContext = context;
+            _dbContext = context;
             dbSet = context.Set<TEntity>();
         }
 
@@ -57,6 +57,7 @@ namespace Auth.Sqlite.Repositories.Base
             {
                 // Attempt to add entity
                 dbSet.Add(entity);
+                Save();
                 result.IsSuccess = true;
                 result.Result = entity;
             }
@@ -76,7 +77,7 @@ namespace Auth.Sqlite.Repositories.Base
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            if (_dataContext.Entry(entityToDelete).State == EntityState.Detached)
+            if (_dbContext.Entry(entityToDelete).State == EntityState.Detached)
             {
                 dbSet.Attach(entityToDelete);
             }
@@ -87,7 +88,7 @@ namespace Auth.Sqlite.Repositories.Base
         public virtual void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
-            _dataContext.Entry(entityToUpdate).State = EntityState.Modified;
+            _dbContext.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
         public IEnumerable<TEntity> GetWithRawSql(string query, params object[] parameters)
@@ -97,7 +98,7 @@ namespace Auth.Sqlite.Repositories.Base
 
         public virtual void Save()
         {
-
+            _dbContext.SaveChanges();
         }
     }
 }
