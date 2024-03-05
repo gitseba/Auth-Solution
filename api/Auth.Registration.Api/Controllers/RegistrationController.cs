@@ -2,8 +2,10 @@
 using Auth.Sqlite.Entities;
 using Auth.Sqlite.Repositories.Base;
 using AutoMapper;
+using EmailService.Papercut.Templates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NETCore.MailKit.Core;
 
 namespace Auth.Registration.Api.Controllers
 {
@@ -13,18 +15,21 @@ namespace Auth.Registration.Api.Controllers
     {
         private readonly IRepository<AccountEntity> _repository;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
 
         public RegistrationController(
             IRepository<AccountEntity> repository,
-            IMapper mapper)
+            IMapper mapper,
+            IEmailService emailService)
         {
             _repository = repository;
             _mapper = mapper;
+            _emailService = emailService;
         }
 
         [AllowAnonymous]
         [HttpPost()]
-        public IActionResult Register([FromBody] RegisterDto registerData)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto registerData)
         {
             // BE Validation
             if (!ModelState.IsValid)
@@ -40,6 +45,7 @@ namespace Auth.Registration.Api.Controllers
             if (result.IsSuccess)
             {
                 // Registration successful
+                await _emailService.SendAsync("test@test.com", "email verify", MailMessage.GetMailMessage(), true);
                 return Ok();//RedirectToAction("Login");
             }
             else

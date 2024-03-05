@@ -8,12 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />  
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\data\Auth.Sqlite\Auth.Sqlite.csproj" />
+    <ProjectReference Include="..\..\srv\EmailService.Papercut\EmailService.Papercut.csproj" />
   </ItemGroup>
 
 </Project>

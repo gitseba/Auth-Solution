@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { RegisterComponent } from './components/register/register.component';
 import { AuthRoutingModule } from './auth-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -18,7 +19,8 @@ import { AuthRoutingModule } from './auth-routing.module';
     FormsModule,
 
      //Needed for links inside login/register components
-     AuthRoutingModule
+     AuthRoutingModule,
+     SharedModule
   ],
   exports: [
     RegisterComponent

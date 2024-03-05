@@ -5,6 +5,8 @@ using Auth.Sqlite.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using EmailService.Papercut;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +49,9 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader();
         });
 });
+
+// Papercut Test Email Service
+builder.Services.AddPapercutEmailService();
 
 //AutoMapper
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

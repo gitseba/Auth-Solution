@@ -14,7 +14,9 @@ export class RegisterComponent {
   @ViewChild('registerForm') registerForm: NgForm;
   isSubmitting: boolean = false;
   
-  constructor(private userAuthService: UserAuthService, 
+  constructor(
+    private router: Router,
+    private userAuthService: UserAuthService, 
     private toastr: ToastrService) {
     this.userAuthService = userAuthService;
   }
@@ -38,6 +40,7 @@ export class RegisterComponent {
     .register(payload).subscribe({
       next: response =>{ 
         console.log(response); 
+        this.router.navigate(['/']);
         this.toastr.success("Registration was success.")
       },
       error: error => {
@@ -54,6 +57,7 @@ export class RegisterComponent {
       complete: () => {
         console.log("Registration request is completed.")
         //When arrive here, this will automatically unsubscribe from the service
+        this.isSubmitting = false;
       }
     });
   }
