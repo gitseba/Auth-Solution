@@ -2,6 +2,10 @@ input.ng-invalid.ng-touched{
     border: 1px solid red;
 }
 
+input.ng-pending.ng-touched{
+  border: 1px solid rgb(255, 247, 0);
+}
+
 .password-container {
     position: relative;
     width: 100%;

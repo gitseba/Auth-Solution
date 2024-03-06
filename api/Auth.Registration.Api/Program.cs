@@ -1,11 +1,10 @@
 using Auth.Sqlite.Contexts;
 using Auth.Sqlite.Entities;
-using Auth.Sqlite.Repositories.Base;
 using Auth.Sqlite.Repositories;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Auth.Sqlite.Repositories.Base;
+using EmailService.Papercut;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using EmailService.Papercut;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,30 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AccountDbContext>(options
     => options.UseSqlite(b => b.MigrationsAssembly("Auth.Sqlite")));
 builder.Services.AddScoped<IRepository<AccountEntity>, AccountRepository>();
-
-
-builder.Services.AddAuthentication(
-               config =>
-               {
-                   /* In this section I select Schemes I want to use for Default/Challenge/Forbid 
-                    * (think of this section as the MainPanel for Authentication Schemes) */
-                   config.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
-                   // An authentication scheme's authenticate action is responsible for constructing the user's identity based on request context. 
-                   config.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
-                   //An authentication challenge is invoked by Authorization when an unauthenticated user requests an endpoint that requires authentication.
-                   config.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-               })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
-                {
-                    o.Cookie.Name = "Sebs.Cookie";
-                    o.LoginPath = new PathString("/api/Account/Login");
-                    o.Events.OnSigningIn += (context) =>
-                    {
-                        return Task.CompletedTask;
-                    };
-                });
 
 builder.Services.AddCors(options =>
 {

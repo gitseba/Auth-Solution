@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from '../../services/user-auth.service';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CustomValidators } from 'src/app/validators/custom.validator';
+import { debounceTime, take, switchMap, map, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -13,21 +14,20 @@ import { CustomValidators } from 'src/app/validators/custom.validator';
 export class RegisterComponent {
   registerForm: FormGroup;
   isSubmitting: boolean = false;
-  passwordInFocus:boolean = false;
+  passwordInFocus: boolean = false;
   passwordHidden = true;
 
   constructor(
     private router: Router,
     private userAuthService: UserAuthService,
     private toastr: ToastrService) {
-    this.userAuthService = userAuthService;
   }
 
   ngOnInit(): void {
 
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required, CustomValidators.noSpaceAllowed]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email], [this.validateEmailExistsAlready()]),
       password: new FormControl('',
         [
           Validators.required,
@@ -40,6 +40,7 @@ export class RegisterComponent {
   }
 
   register() {
+    console.log(this.registerForm);
     if (this.registerForm.invalid) {
       return;
     }
@@ -58,7 +59,7 @@ export class RegisterComponent {
         this.toastr.error(`Form submission failed. If the error persist, contact the administrator.`);
         this.isSubmitting = false;
       },
-      complete: () => { 
+      complete: () => {
         this.isSubmitting = false;
         //When arrive here, this will automatically unsubscribe from the service
       }
@@ -67,5 +68,23 @@ export class RegisterComponent {
 
   togglePasswordVisibility() {
     this.passwordHidden = !this.passwordHidden;
+  }
+
+  validateEmailExistsAlready(): AsyncValidatorFn {
+    return (control: AbstractControl) => {
+      return control.valueChanges.pipe(
+        debounceTime(1000),
+        take(1),
+        switchMap(() => {
+          return this.userAuthService.checkEmailExists(control.value)
+            .pipe(
+              map(result => {
+                return result ? { emailExists: true } : null;
+              }),
+              finalize(() => control.markAsTouched())
+            )
+        })
+      )
+    }
   }
 }

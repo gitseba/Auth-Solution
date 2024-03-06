@@ -8,7 +8,8 @@ import { environment } from '../../../../../environment';
 })
 export class UserAuthService {
 
-  apiUrl: string = environment.authApiUrl;
+  registrationApiUrl: string = environment.registrationApiUrl;
+  loginApiUrl: string = environment.loginApiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -18,6 +19,20 @@ export class UserAuthService {
       email: data.email,
       password: data.password,
     }
-    return this.http.post(`${this.apiUrl}`, payload)
+    return this.http.post<any>(`${this.registrationApiUrl}`, payload)
+  }
+
+  checkEmailExists(email: string) {
+    return this.http.get<boolean>(`${this.registrationApiUrl}` + '/checkEmail?email=' + email);
+  }
+
+  login(data:any): Observable<any>{
+    let payload = {
+      email: data.email,
+      password: data.password,
+    }
+    /* ensure that you set the withCredentials option to true when making the HTTP request to include cookies in the request. 
+    Angular's HttpClient will automatically handle the cookies sent by the server and store them.  */
+    return this.http.post<any>(`${this.loginApiUrl}`, payload)
   }
 }

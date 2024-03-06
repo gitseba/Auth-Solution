@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.MailKit.Core;
+using System.Net;
 
 namespace Auth.Registration.Api.Controllers
 {
@@ -28,7 +29,7 @@ namespace Auth.Registration.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost()]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto registerData)
+        public async Task<ActionResult<RegisteredUserDto>> RegisterAsync([FromBody] RegisterDto registerData)
         {
             // BE Validation
             if (!ModelState.IsValid)
@@ -45,7 +46,14 @@ namespace Auth.Registration.Api.Controllers
                 // !!! Open Papercut app for email service to work.
                 //await _emailService.SendAsync("test@test.com", "email verify", MailMessage.GetMailMessage(), true);
                 var result = _repository.Insert(mapAccount);
-                return Ok();
+                if (!result.IsSuccess) return BadRequest();
+
+                // Return a 201 Created response with the location header pointing to the newly created resource
+                return StatusCode((int)HttpStatusCode.Created, new RegisteredUserDto
+                {
+                    DisplayName = registerData.Name,
+                    Email = registerData.Email
+                });
             }
             catch (Exception ex)
             {
@@ -55,24 +63,24 @@ namespace Auth.Registration.Api.Controllers
             }
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet("checkEmail")]
-        public async Task<IActionResult> CheckExistingUserAsync([FromQuery] string email)
+        public bool CheckEmail([FromQuery] string email)
         {
             try
             {
                 var result = _repository.Get((account) => account.Email == email);
                 if (result != null && result.Count() != 0)
                 {
-                    return StatusCode(409, "Email already exists.");
+                    return true;
                 }
-                return Ok();
+                return false;
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 // Return an internal server error response with the error message
-                return StatusCode(500, "Internal Server Error: " + ex.Message);
+                return false;
             }
         }
     }
