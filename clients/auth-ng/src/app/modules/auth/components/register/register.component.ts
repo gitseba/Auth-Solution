@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from '../../services/user-auth.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CustomValidators } from 'src/app/validators/custom.validator';
 
@@ -13,6 +13,7 @@ import { CustomValidators } from 'src/app/validators/custom.validator';
 export class RegisterComponent {
   registerForm: FormGroup;
   isSubmitting: boolean = false;
+  passwordInFocus:boolean = false;
 
   constructor(
     private router: Router,
@@ -26,7 +27,12 @@ export class RegisterComponent {
     this.registerForm = new FormGroup({
       name: new FormControl('', [Validators.required, CustomValidators.noSpaceAllowed]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('',
+        [
+          Validators.required,
+          (c: AbstractControl) => CustomValidators.passwordRequirements(c),
+        ],
+      ),
       confirmPassword: new FormControl('', Validators.required)
     });
 
@@ -60,4 +66,6 @@ export class RegisterComponent {
       }
     });
   }
+
+
 }

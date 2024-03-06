@@ -33,21 +33,46 @@
                             </div>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input id="password" formControlName="password" type="password" class="form-control"/>
-                            <div *ngIf="registerForm.get('password').touched && registerForm.get('password').errors">
-                                <span class="text-danger small">*Password is required</span>
-                            </div>
-                        </div>
+                        <div class="password-container">
 
-                        <div class="form-group mb-3">
-                            <label for="confirm-password" class="form-label">Confirm Password</label>
-                            <input id="confirm-password" formControlName="confirmPassword" type="password"class="form-control"/>
-                            <div *ngIf="registerForm.get('password').value !== registerForm.get('confirmPassword').value">
-                                <span class="text-danger small">*Passwords do not match</span>
+                            <div class="password-requirements" *ngIf="passwordInFocus">
+                                <p [ngClass]="registerForm.get('password')?.errors?.['length-req'] ? 'not-met' : 'met'">
+                                    Between 3 - 20 characters
+                                </p>
+                                <!-- <p [ngClass]="registerForm.get('password')?.errors?.['upperCase-letter'] ? 'not-met' : 'met'">
+                                    At least one lowercase letter (a-z)
+                                </p>
+                                <p [ngClass]="registerForm.get('password')?.errors?.['lowerCase-letter'] ? 'not-met' : 'met'">
+                                    At least one uppercase letter (A-Z)
+                                </p>
+                    
+                                <p [ngClass]="registerForm.get('password')?.errors?.['digit'] ? 'not-met' : 'met'">
+                                    At least one special character
+                                </p>
+                    
+                                <p [ngClass]="registerForm.get('password')?.errors?.['special'] ? 'not-met' : 'met'">
+                                    At least one digit (0-9)
+                                </p> -->
                               </div>
-                        </div> 
+    
+                            <div class="form-group mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input id="password" formControlName="password" type="password" class="form-control"
+                                (focus)="passwordInFocus = true" (blur)="passwordInFocus = false"/>
+                                <div *ngIf="registerForm.get('password').touched && registerForm.get('password').errors">
+                                    <span class="text-danger small">*Password is required</span>
+                                </div>
+                            </div>
+    
+                            <div class="form-group mb-3">
+                                <label for="confirm-password" class="form-label">Confirm Password</label>
+                                <input id="confirm-password" formControlName="confirmPassword" type="password"class="form-control"/>
+                                <div *ngIf="registerForm.get('password').value !== registerForm.get('confirmPassword').value">
+                                    <span class="text-danger small">*Passwords do not match</span>
+                                  </div>
+                            </div> 
+                        </div>
+                       
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary btn-block" 

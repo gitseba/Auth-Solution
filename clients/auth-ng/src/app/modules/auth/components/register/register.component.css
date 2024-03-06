@@ -1,3 +1,49 @@
 input.ng-invalid.ng-touched{
     border: 1px solid red;
 }
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-requirements {
+    position: absolute;
+    overflow: visible;
+    transform: translateY(-100%);
+    top: -5px;
+    z-index: 999;
+    background-color: #fff;
+    padding: 0.75em 0.6em;
+    border-radius: 0.3rem;
+    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3),
+      0 0.04rem 0.1rem rgba(0, 0, 0, 0.2);
+  }
+  
+  .password-requirements::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 98%;
+    left: 1.5em;
+    border: 0.75rem solid transparent;
+    border-bottom: none;
+    border-top-color: #fff;
+    filter: drop-shadow(0 0.2rem 0.08rem rgba(0, 0, 0, 0.2));
+  }
+  
+  .password-requirements p {
+    font-size: 0.7em;
+    margin: 0;
+  }
+  
+  .password-requirements p.met::before {
+    content: "\00a0✔\00a0";
+    color: green;
+  }
+  
+  .password-requirements p.not-met::before {
+    content: "🗙 ";
+    color: red;
+  }
