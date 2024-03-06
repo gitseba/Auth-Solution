@@ -39,21 +39,20 @@ namespace Auth.Registration.Api.Controllers
 
             // BCrypt.NET or System.Security.Cryptography to securely hash passwords
 
-            var mapAccount = _mapper.Map<AccountEntity>(registerData);
-
-            var result = _repository.Insert(mapAccount);
-            if (result.IsSuccess)
+            try
             {
-                // Registration successful
-                await _emailService.SendAsync("test@test.com", "email verify", MailMessage.GetMailMessage(), true);
-                return Ok();//RedirectToAction("Login");
+                var mapAccount = _mapper.Map<AccountEntity>(registerData);
+
+                // !!! Open Papercut app for email service to work.
+                //await _emailService.SendAsync("test@test.com", "email verify", MailMessage.GetMailMessage(), true);
+                var result = _repository.Insert(mapAccount);
+                return Ok();
             }
-            else
+            catch (Exception ex)
             {
-                // If registration fails, add errors to ModelState
-                ModelState.AddModelError("", result.ErrorMessage);
-
-                return BadRequest(ModelState);
+                ModelState.AddModelError("", ex.Message);
+                // Return an internal server error response with the error message
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
             }
         }
     }

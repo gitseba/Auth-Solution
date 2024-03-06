@@ -6,43 +6,43 @@
                 <div class="card-body">
                     <h5 class="card-title mb-4">Register</h5>
 
-                    <form #registerForm="ngForm" (ngSubmit)="registerAction()">
+                    <form [formGroup]="registerForm" (ngSubmit)="registerAction()">
 
                         <div class="form-group mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input id="name" name="name" ngModel #name="ngModel" type="text" required class="form-control"/>
-                            <div *ngIf="name.touched && name.errors">
+                            <input id="name" formControlName="name" type="text" required class="form-control"/>
+                            <div *ngIf="registerForm.get('name').touched && registerForm.get('name').errors">
                                 <span class="text-danger small">*Name is required</span>
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input id="email" name="email" ngModel #email="ngModel" required email type="email" class="form-control"/>
-                            <div *ngIf="email.touched && email.errors">
+                            <input id="email" formControlName="email" required email type="email" class="form-control"/>
+                            <div *ngIf="registerForm.get('email').touched && registerForm.get('email').errors">
                                 <span class="text-danger small">*Email is required</span>
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input id="password" name="password" ngModel #password="ngModel" required type="password" class="form-control"/>
-                            <div *ngIf="password.touched && password.errors">
+                            <input id="password" formControlName="password" required type="password" class="form-control"/>
+                            <div *ngIf="registerForm.get('password').touched && registerForm.get('password').errors">
                                 <span class="text-danger small">*Password is required</span>
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="confirm-password" class="form-label">Confirm Password</label>
-                            <input id="confirm-password" name="confirmPassword" ngModel #confirmPassword="ngModel" required type="password"class="form-control"/>
-                            <div *ngIf="password.value !== confirmPassword.value">
+                            <input id="confirm-password" formControlName="confirmPassword" required type="password"class="form-control"/>
+                            <div *ngIf="registerForm.get('password').value !== registerForm.get('confirmPassword').value">
                                 <span class="text-danger small">*Passwords do not match</span>
                               </div>
                         </div> 
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary btn-block" 
-                            [disabled]="isSubmitting || registerForm.invalid || password.value !== confirmPassword.value">Register Now</button>
+                            [disabled]="isSubmitting || registerForm.invalid || registerForm.get('password').value !== registerForm.get('confirmPassword').value">Register Now</button>
                         </div>
                     </form>
                 </div>
