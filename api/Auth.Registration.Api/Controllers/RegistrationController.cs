@@ -2,12 +2,9 @@
 using Auth.Sqlite.Entities;
 using Auth.Sqlite.Repositories.Base;
 using AutoMapper;
-using EmailService.Papercut.Templates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.MailKit.Core;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Auth.Registration.Api.Controllers
 {
@@ -62,8 +59,8 @@ namespace Auth.Registration.Api.Controllers
         [HttpGet("checkEmail")]
         public async Task<IActionResult> CheckExistingUserAsync([FromQuery] string email)
         {
-            try 
-            { 
+            try
+            {
                 var result = _repository.Get((account) => account.Email == email);
                 if (result != null && result.Count() != 0)
                 {

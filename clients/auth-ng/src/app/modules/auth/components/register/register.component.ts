@@ -39,10 +39,7 @@ export class RegisterComponent {
 
   }
 
-  registerAction() {
-
-    
-    console.log(this.registerForm);
+  register() {
     if (this.registerForm.invalid) {
       return;
     }

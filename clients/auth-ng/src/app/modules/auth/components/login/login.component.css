@@ -1,0 +1,15 @@
+
+.toggle-password-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Style for the icon */
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1.2em; /* Adjust icon size */
+  color: #333; /* Adjust icon color */
+}

@@ -1,0 +1,54 @@
+<app-spinner *ngIf="isSubmitting"></app-spinner>
+<div class="container">
+    <div class="row justify-content-md-center mt-5">
+        <div class="col-sm-* col-md-12 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Login</h5>
+
+                    <form #loginForm="ngForm" (ngSubmit)="login()">
+
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input id="email" name="email" ngModel #email="ngModel" type="email" class="form-control"
+                            required email/>
+                            <div *ngIf="email.touched && email.errors?.['required']">
+                                <span class="text-danger small">*Email is required</span>
+                            </div>
+                            <div *ngIf="email.touched && email.errors?.['email']">
+                                <span class="text-danger small">*Email format is wrong</span>
+                            </div>
+                        </div>
+
+                        <div class="password-container">
+    
+                            <div class="form-group mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="d-flex">
+                                    <input id="password" name="password" #password="ngModel" ngModel 
+                                           [type]="passwordHidden ? 'password' : 'text'" class="form-control"
+                                           required/>
+                                    <button type="button" (click)="togglePasswordVisibility()" class="toggle-password-button"><span class="icon">
+                                        <i class="fa" [ngClass]="passwordHidden ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                      </span>
+                                    </button>
+                                </div>
+                                
+                                <div *ngIf="password.touched && password.errors">
+                                    <span class="text-danger small">*Password is required</span>
+                                </div>
+                            </div>
+                        </div>
+                       
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-block" 
+                            [disabled]="isSubmitting || loginForm.invalid || !password.value"
+                            >Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
