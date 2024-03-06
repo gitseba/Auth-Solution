@@ -14,6 +14,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   isSubmitting: boolean = false;
   passwordInFocus:boolean = false;
+  passwordHidden = true;
 
   constructor(
     private router: Router,
@@ -67,5 +68,7 @@ export class RegisterComponent {
     });
   }
 
-
+  togglePasswordVisibility() {
+    this.passwordHidden = !this.passwordHidden;
+  }
 }

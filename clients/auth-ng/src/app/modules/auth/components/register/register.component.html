@@ -57,8 +57,15 @@
     
                             <div class="form-group mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input id="password" formControlName="password" type="password" class="form-control"
-                                (focus)="passwordInFocus = true" (blur)="passwordInFocus = false"/>
+                                <div class="d-flex">
+                                    <input id="password" formControlName="password" [type]="passwordHidden ? 'password' : 'text'" class="form-control"
+                                    (focus)="passwordInFocus = true" (blur)="passwordInFocus = false"/>
+                                    <button type="button" (click)="togglePasswordVisibility()" class="toggle-password-button"><span class="icon">
+                                        <i class="fa" [ngClass]="passwordHidden ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                      </span>
+                                    </button>
+                                </div>
+                                
                                 <div *ngIf="registerForm.get('password').touched && registerForm.get('password').errors">
                                     <span class="text-danger small">*Password is required</span>
                                 </div>
@@ -66,7 +73,7 @@
     
                             <div class="form-group mb-3">
                                 <label for="confirm-password" class="form-label">Confirm Password</label>
-                                <input id="confirm-password" formControlName="confirmPassword" type="password"class="form-control"/>
+                                <input id="confirm-password" formControlName="confirmPassword" [type]="passwordHidden ? 'password' : 'text'" class="form-control"/>
                                 <div *ngIf="registerForm.get('password').value !== registerForm.get('confirmPassword').value">
                                     <span class="text-danger small">*Passwords do not match</span>
                                   </div>
