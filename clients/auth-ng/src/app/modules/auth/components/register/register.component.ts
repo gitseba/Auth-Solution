@@ -1,9 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from '../../services/user-auth.service';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { CustomValidators } from 'src/app/validators/custom.validator';
 
 @Component({
   selector: 'app-register',
@@ -11,10 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-
-  //@ViewChild('registerForm') registerForm: NgForm;
   registerForm: FormGroup;
-
   isSubmitting: boolean = false;
 
   constructor(
@@ -27,7 +24,7 @@ export class RegisterComponent {
   ngOnInit(): void {
 
     this.registerForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      name: new FormControl('', [Validators.required, CustomValidators.noSpaceAllowed]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required)
@@ -37,6 +34,7 @@ export class RegisterComponent {
 
   registerAction() {
 
+    
     console.log(this.registerForm);
     if (this.registerForm.invalid) {
       return;
@@ -53,12 +51,11 @@ export class RegisterComponent {
         this.toastr.success("Registration was success.")
       },
       error: err => {
-        debugger
         this.toastr.error(`Form submission failed. If the error persist, contact the administrator.`);
         this.isSubmitting = false;
       },
-      complete: () => {
-        debugger
+      complete: () => { 
+        this.isSubmitting = false;
         //When arrive here, this will automatically unsubscribe from the service
       }
     });

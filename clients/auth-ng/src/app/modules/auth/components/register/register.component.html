@@ -10,23 +10,32 @@
 
                         <div class="form-group mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input id="name" formControlName="name" type="text" required class="form-control"/>
-                            <div *ngIf="registerForm.get('name').touched && registerForm.get('name').errors">
+                            <input id="name" formControlName="name" type="text" class="form-control"/>
+                            <div *ngIf="registerForm.get('name').touched && registerForm.get('name').errors?.['required']">
                                 <span class="text-danger small">*Name is required</span>
+                            </div>
+                            <div *ngIf="registerForm.get('name').touched && registerForm.get('name').errors?.['noSpaceAllowed']">
+                                <span class="text-danger small">*No space is allowed for name</span>
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input id="email" formControlName="email" required email type="email" class="form-control"/>
-                            <div *ngIf="registerForm.get('email').touched && registerForm.get('email').errors">
+                            <input id="email" formControlName="email" type="email" class="form-control"/>
+                            <div *ngIf="registerForm.get('email').touched && registerForm.get('email').errors?.['required']">
                                 <span class="text-danger small">*Email is required</span>
+                            </div>
+                            <div *ngIf="registerForm.get('email').touched && registerForm.get('email').errors?.['email']">
+                                <span class="text-danger small">*Email format is wrong</span>
+                            </div>
+                            <div *ngIf="registerForm.get('email').touched && registerForm.get('email').errors?.['emailExists']">
+                                <span class="text-danger small">*Email is registered already</span>
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input id="password" formControlName="password" required type="password" class="form-control"/>
+                            <input id="password" formControlName="password" type="password" class="form-control"/>
                             <div *ngIf="registerForm.get('password').touched && registerForm.get('password').errors">
                                 <span class="text-danger small">*Password is required</span>
                             </div>
@@ -34,7 +43,7 @@
 
                         <div class="form-group mb-3">
                             <label for="confirm-password" class="form-label">Confirm Password</label>
-                            <input id="confirm-password" formControlName="confirmPassword" required type="password"class="form-control"/>
+                            <input id="confirm-password" formControlName="confirmPassword" type="password"class="form-control"/>
                             <div *ngIf="registerForm.get('password').value !== registerForm.get('confirmPassword').value">
                                 <span class="text-danger small">*Passwords do not match</span>
                               </div>
@@ -42,7 +51,8 @@
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary btn-block" 
-                            [disabled]="isSubmitting || registerForm.invalid || registerForm.get('password').value !== registerForm.get('confirmPassword').value">Register Now</button>
+                            >Register Now</button>
+                            <!--[disabled]="isSubmitting || registerForm.invalid || registerForm.get('password').value !== registerForm.get('confirmPassword').value"-->
                         </div>
                     </form>
                 </div>

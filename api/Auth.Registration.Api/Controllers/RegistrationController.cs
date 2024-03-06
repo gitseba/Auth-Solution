@@ -6,6 +6,8 @@ using EmailService.Papercut.Templates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.MailKit.Core;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Auth.Registration.Api.Controllers
 {
@@ -46,6 +48,27 @@ namespace Auth.Registration.Api.Controllers
                 // !!! Open Papercut app for email service to work.
                 //await _emailService.SendAsync("test@test.com", "email verify", MailMessage.GetMailMessage(), true);
                 var result = _repository.Insert(mapAccount);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                // Return an internal server error response with the error message
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("checkEmail")]
+        public async Task<IActionResult> CheckExistingUserAsync([FromQuery] string email)
+        {
+            try 
+            { 
+                var result = _repository.Get((account) => account.Email == email);
+                if (result != null && result.Count() != 0)
+                {
+                    return StatusCode(409, "Email already exists.");
+                }
                 return Ok();
             }
             catch (Exception ex)
