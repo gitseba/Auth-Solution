@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserAuthService } from './modules/auth/services/user-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'auth-ng';
+  constructor(private accountService: UserAuthService) {}
+  
+  ngOnInit(): void {
+    this.loadCurrentUser();
+  }
+
+  loadCurrentUser() {
+    const token = localStorage.getItem('token');
+    if(token){
+      this.accountService.loadCurrentUser(token).subscribe();
+    }
+  }
 }

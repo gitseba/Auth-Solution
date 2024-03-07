@@ -35,7 +35,7 @@ export class LoginComponent {
         this.toastr.success("Login was success.")
       },
       error: err => {
-        this.toastr.error(`Login failed. ${err.error}`);
+        this.toastr.error(`Login failed. ${err.message}`);
         this.isSubmitting = false;
       },
       complete: () => { 

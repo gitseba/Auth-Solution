@@ -10,31 +10,45 @@ builder.Services
           .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
             config =>
             {
-                var secretBytes = Encoding.UTF8.GetBytes("not_too_short_secret_otherwise_it_might_error");
-                var key = new SymmetricSecurityKey(secretBytes);
+                config.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = builder.Configuration["Token:Issuer"] ?? "localhost",
+                    ValidateIssuer = true,
+                    ValidAudience = builder.Configuration["Token:Audience"] ?? "",
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:Key"])),
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.FromMinutes(5) // Set the clock skew to 5 minutes
+                };
+
+                config.SaveToken = true;
 
                 config.Events = new JwtBearerEvents()
                 {
                     OnMessageReceived = context =>
                     {
                         return Task.CompletedTask;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        return Task.CompletedTask;
                     }
                 };
-
-                config.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ClockSkew = TimeSpan.Zero,
-                    ValidIssuer = "https://localhost:44363/",
-                    ValidAudience = "https://localhost:44363/",
-                    IssuerSigningKey = key,
-                };
             });
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
