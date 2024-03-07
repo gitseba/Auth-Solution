@@ -2,14 +2,28 @@
     <div class="container-fluid">
         <a class="navbar-brand" routerLink="/">Auth.Solution</a>
         <div class="" id="navbarNav">
-            <ul class="ml-auto">
-                <li class="">
-                    <a class="" routerLink="/login" routerLinkActive="active">Login</a>
-                </li>
-                <li class="">
-                    <a class="" routerLink="/register" routerLinkActive="active">Register</a>
-                </li>
-            </ul>
+            <!--USER IS NOT LOGGED IN-->
+            <ng-container *ngIf="(accountService.currentUser$ | async) === null">
+                <a class="pr-2" routerLink="/login" routerLinkActive="active">Login</a>
+                <a class="" routerLink="/register" routerLinkActive="active">Register</a>
+            </ng-container>
+
+            <!--USER IS LOGGED IN-->
+            <ng-container *ngIf="accountService.currentUser$ | async as user">
+                <div class="dropdown ms-3 me-5" style="cursor: pointer;" dropdown>
+                    <a dropdownToggle class="dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>Welcome {{user.displayName}}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-divider"></div>
+                        <li class="py-1">
+                            <a (click)="accountService.logout()" class="dropdown-item">
+                                <i class="fa fa-sign-out me-3"></i> Logout
+                            </a>
+                        </li>
+                      </ul>
+                </div> 
+            </ng-container>
         </div>
     </div>
 </nav>

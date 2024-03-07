@@ -24,4 +24,9 @@
   a {
     color: #fff;
     text-decoration: none;
+    padding-right: 12px;
+  }
+
+  .dropdown-item{
+    color: black;
   }

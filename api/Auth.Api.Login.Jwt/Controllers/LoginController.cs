@@ -31,10 +31,15 @@ namespace Auth.Api.Login.Jwt.Controllers
                 }
 
                 // Generate JWT token
-                var token = AuthenticateAsync();
+                var token = await AuthenticateAsync();
 
                 // Return token
-                return Ok(new { token });
+                return Ok(new UserDto
+                {
+                    DisplayName = "To Sebs",
+                    Email = login.Email,
+                    Token = token
+                });
             }
             catch (Exception ex)
             {
