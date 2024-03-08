@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UserAuthService } from '../../services/user-auth.service';
+import { UserAuthService } from '../../../../services/user-auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 

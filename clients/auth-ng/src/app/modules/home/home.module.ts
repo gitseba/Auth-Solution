@@ -4,12 +4,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CoreModule } from '../core/core.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { PrivateComponent } from './components/private/private.component';
 
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    PrivateComponent
   ],
   imports: [
     CommonModule,

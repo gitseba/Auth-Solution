@@ -105,7 +105,7 @@ namespace Auth.Api.Login.Jwt.Controllers
                    _config["Token:Audience"],
                     claims,
                     notBefore: DateTime.Now, //When the token starts to be valid
-                    expires: DateTime.Now.AddHours(1),
+                    expires: DateTime.Now.AddSeconds(10),
                     signingCredentials);
 
             var tokenJson = new JwtSecurityTokenHandler().WriteToken(token);

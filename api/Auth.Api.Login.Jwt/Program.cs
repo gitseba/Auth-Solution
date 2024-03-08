@@ -19,7 +19,7 @@ builder.Services
                     ValidateLifetime = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:Key"])),
                     ValidateIssuerSigningKey = true,
-                    ClockSkew = TimeSpan.FromMinutes(5) // Set the clock skew to 5 minutes
+                    ClockSkew = TimeSpan.Zero//TimeSpan.FromMinutes(5) // Set the clock skew to 5 minutes
                 };
 
                 config.SaveToken = true;

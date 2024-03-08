@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserAuthService } from '../../services/user-auth.service';
+import { UserAuthService } from '../../../../services/user-auth.service';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CustomValidators } from 'src/app/validators/custom.validator';

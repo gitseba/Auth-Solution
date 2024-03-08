@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { UserAuthService } from './modules/auth/services/user-auth.service';
+import { UserAuthService } from './services/user-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { UserAuthService } from './modules/auth/services/user-auth.service';
 })
 export class AppComponent {
   title = 'auth-ng';
-  constructor(private accountService: UserAuthService) {}
+  constructor(private accountService: UserAuthService, private router: Router,) {}
   
   ngOnInit(): void {
     this.loadCurrentUser();
@@ -18,6 +19,8 @@ export class AppComponent {
     const token = localStorage.getItem('token');
     if(token){
       this.accountService.loadCurrentUser(token).subscribe();
+    }else{
+      this.router.navigateByUrl('');
     }
   }
 }
